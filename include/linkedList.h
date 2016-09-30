@@ -11,16 +11,28 @@ typedef struct {
 } LinkedList_s;
 
 
-LinkedList_s* initList_s();
+int initList_s(LinkedList_s * head);
 
-int addNodeEnd_s(LinkedList_s head, void * data);
+int addNodeStart_s(LinkedList_s * head, void * data);
 
-int addNodeInsert_s(LinkedList_s head, void * data, unsigned int index);
+int addNodeInsert_s(LinkedList_s * head, void * data, unsigned int index);
 
-int addNodeInsertionSorted_s(LinkedList_s head, void * data, int (*compare)(void * a, void * b));
+int addNodeEnd_s(LinkedList_s * head, void * data);
 
-int removeNode_s(LinkedList_s head, unsigned int index);
+int addNodeInsertionSorted_s(LinkedList_s * head, void * data, int (*compare)(void * a, void * b));
 
-void * getData_s(LinkedList_s head, unsigned int index);
+int sortList_s(LinkedList_s * head, int (*compare)(void * a, void * b));
 
-int setData_s(LinkedList_s head, void * data);
+int length_s(LinkedList_s * head);
+
+void * getData_s(LinkedList_s * head, unsigned int index);
+
+int removeNode_s(LinkedList_s * head, unsigned int index);
+
+int removeNodeStart_s(LinkedList_s * head);
+
+int removeNodeEnd_s(LinkedList_s * head);
+
+int setData_s(LinkedList_s * head, void * data, unsigned int index);
+
+LinkedListBody_s * getElementTraverse(LinkedList_s * head, unsigned int index);
