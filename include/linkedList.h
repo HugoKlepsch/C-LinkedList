@@ -33,10 +33,12 @@ int removeNodeStart_s(LinkedList_s * head, bool freeData);
 
 int removeNodeEnd_s(LinkedList_s * head, bool freeData);
 
+int destroyList_s(LinkedList_s * head, bool freeData);
+
 int setData_s(LinkedList_s * head, void * data, unsigned int index);
 
 LinkedListBody_s * getElementTraverse_s(LinkedList_s * head, unsigned int index);
 
-int destroyList_s(LinkedList_s * head, bool freeData);
-
 LinkedListBody_s * allocNode_s(void * data);
+
+void swap(LinkedListBody_s * a, LinkedListBody_s * b);
