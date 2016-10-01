@@ -1,3 +1,6 @@
+#ifndef __HKLEPSCH_LINKEDLIST_H__
+#define __HKLEPSCH_LINKEDLIST_H__
+
 #include <stdbool.h>
 
 typedef struct LinkedListBody_s{
@@ -35,10 +38,12 @@ int removeNodeEnd_s(LinkedList_s * head, bool freeData);
 
 int destroyList_s(LinkedList_s * head, bool freeData);
 
-int setData_s(LinkedList_s * head, void * data, unsigned int index);
+int setData_s(LinkedList_s * head, unsigned int index, void * data, bool freeData);
 
 LinkedListBody_s * getElementTraverse_s(LinkedList_s * head, unsigned int index);
 
 LinkedListBody_s * allocNode_s(void * data);
 
 void swap(LinkedListBody_s * a, LinkedListBody_s * b);
+
+#endif
