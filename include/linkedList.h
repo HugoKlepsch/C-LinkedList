@@ -1,4 +1,4 @@
-
+#include <stdbool.h>
 
 typedef struct LinkedListBody_s{
     void * data;
@@ -27,12 +27,16 @@ int length_s(LinkedList_s * head);
 
 void * getData_s(LinkedList_s * head, unsigned int index);
 
-int removeNode_s(LinkedList_s * head, unsigned int index);
+int removeNode_s(LinkedList_s * head, unsigned int index, bool freeData);
 
-int removeNodeStart_s(LinkedList_s * head);
+int removeNodeStart_s(LinkedList_s * head, bool freeData);
 
-int removeNodeEnd_s(LinkedList_s * head);
+int removeNodeEnd_s(LinkedList_s * head, bool freeData);
 
 int setData_s(LinkedList_s * head, void * data, unsigned int index);
 
-LinkedListBody_s * getElementTraverse(LinkedList_s * head, unsigned int index);
+LinkedListBody_s * getElementTraverse_s(LinkedList_s * head, unsigned int index);
+
+int destroyList_s(LinkedList_s * head, bool freeData);
+
+LinkedListBody_s * allocNode_s(void * data);
