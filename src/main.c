@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <linkedList.h>
+#include <stack.h>
 #include <stdbool.h>
 
 void printList(LinkedList_s * head);
@@ -9,8 +10,10 @@ int * makeData(int data);
 
 void testLinkedList_s();
 
-int main(int argc, char ** argv) {
+void testStack();
 
+int main(int argc, char ** argv) {
+    testStack();
     return 0;
 }
 
@@ -96,6 +99,36 @@ void testLinkedList_s() {
 
 
 }
+
+void testStack() {
+    Stack stack;
+
+    if (initStack(&stack) == 0) {
+        puts("failed to init stack");
+    }
+
+    push(&stack, (void *)makeData(1));
+    push(&stack, (void *)makeData(2));
+    push(&stack, (void *)makeData(3));
+    push(&stack, (void *)makeData(4));
+    push(&stack, (void *)makeData(5));
+
+    printf("pop 1: %d\n", *(int *)pop(&stack));
+    printf("size: %u\n", size(&stack));
+    printf("pop 2: %d\n", *(int *)pop(&stack));
+    printf("size: %u\n", size(&stack));
+    printf("pop 3: %d\n", *(int *)pop(&stack));
+    printf("size: %u\n", size(&stack));
+    printf("pop 4: %d\n", *(int *)pop(&stack));
+    printf("size: %u\n", size(&stack));
+    printf("pop 5: %d\n", *(int *)pop(&stack));
+    printf("size: %u\n", size(&stack));
+
+
+}
+
+
+
 
 
 
