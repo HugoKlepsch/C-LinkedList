@@ -12,8 +12,8 @@ void testLinkedList_s();
 
 void testStack();
 
+
 int main(int argc, char ** argv) {
-    testStack();
     return 0;
 }
 
