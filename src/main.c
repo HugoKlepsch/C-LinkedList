@@ -14,6 +14,8 @@ void testStack();
 
 
 int main(int argc, char ** argv) {
+    testLinkedList_s();
+    testStack();
     return 0;
 }
 
@@ -124,7 +126,7 @@ void testStack() {
     printf("pop 5: %d\n", *(int *)pop(&stack));
     printf("size: %u\n", size(&stack));
 
-
+    destroyStack(&stack);
 }
 
 

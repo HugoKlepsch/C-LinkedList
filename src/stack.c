@@ -56,4 +56,11 @@ unsigned int size(Stack * stack) {
     return length_s(&stack->list);
 }
 
+int destroyStack(Stack * stack, bool freeData) {
+    if (stack == NULL) {
+        return 0;
+    }
+
+    return destroyList_s(&stack->list, freeData);
+}
 
