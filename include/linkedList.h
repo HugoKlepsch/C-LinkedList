@@ -30,15 +30,15 @@ int length_s(LinkedList_s * head);
 
 void * getData_s(LinkedList_s * head, unsigned int index);
 
-int removeNode_s(LinkedList_s * head, unsigned int index, bool freeData);
+int removeNode_s(LinkedList_s * head, unsigned int index, void (*freeData)(void * d));
 
-int removeNodeStart_s(LinkedList_s * head, bool freeData);
+int removeNodeStart_s(LinkedList_s * head, void (*freeData)(void * d));
 
-int removeNodeEnd_s(LinkedList_s * head, bool freeData);
+int removeNodeEnd_s(LinkedList_s * head, void (*freeData)(void * d));
 
-int destroyList_s(LinkedList_s * head, bool freeData);
+int destroyList_s(LinkedList_s * head, void (*freeData)(void * d));
 
-int setData_s(LinkedList_s * head, unsigned int index, void * data, bool freeData);
+int setData_s(LinkedList_s * head, unsigned int index, void * data, void (*freeData)(void * d));
 
 LinkedListBody_s * getElementTraverse_s(LinkedList_s * head, unsigned int index);
 

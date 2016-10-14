@@ -18,6 +18,6 @@ void * peek(Stack * stack);
 
 unsigned int size(Stack * stack);
 
-int destroyStack(Stack * stack, bool freeData);
+int destroyStack(Stack * stack, void (*freeData)(void * d));
 
 #endif

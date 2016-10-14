@@ -26,7 +26,7 @@ int addNodeStart_s(LinkedList_s * head, void * data) {
     temp->next = head->start; //the old start comes after this new start
     head->start = temp; //point to the new start
     head->numNodes = head->numNodes + 1;
-    
+
     return 1; //1 = success
 }
 
@@ -61,11 +61,11 @@ int addNodeInsert_s(LinkedList_s * head, void * data, unsigned int index) {
     }
 
     //get the node on the border
-    leftBorderNode = getElementTraverse_s(head, index - 1); 
+    leftBorderNode = getElementTraverse_s(head, index - 1);
     if (leftBorderNode == NULL) {
         return 0; //end is not properly allocated
     }
-    
+
     //"insert" inbetween leftBorderNode and leftBorderNode->next
     temp->next = leftBorderNode->next;
     leftBorderNode->next = temp;
@@ -98,7 +98,7 @@ int addNodeEnd_s(LinkedList_s * head, void * data) {
     if (oldEnd == NULL) {
         return 0; //end is not properly allocated
     }
-    
+
     //"insert" inbetween oldEnd and oldEnd->next
     temp->next = oldEnd->next;
     oldEnd->next = temp;
@@ -115,7 +115,7 @@ int addNodeInsertionSorted_s(LinkedList_s * head, void * data, int (*compare)(vo
     if (head == NULL) {
         return 0; //if the head is not allocated properly, return error
     }
-    
+
     toBeInserted = allocNode_s(data);
     if (toBeInserted == NULL) {
         return 0; //if the node could not be created, return fail
@@ -136,7 +136,7 @@ int addNodeInsertionSorted_s(LinkedList_s * head, void * data, int (*compare)(vo
     }
     last = head->start;
     current = head->start->next;
-    //while the relative weight of toBeInserted is more than current, 
+    //while the relative weight of toBeInserted is more than current,
     while (((*compare)(toBeInserted, current)) > 0) {
         last = current;
         current = current->next;
@@ -189,7 +189,7 @@ int length_s(LinkedList_s * head) {
 void * getData_s(LinkedList_s * head, unsigned int index) {
     LinkedListBody_s * temp;
     if (head == NULL) {
-        return NULL; 
+        return NULL;
     }
 
     temp = getElementTraverse_s(head, index);
@@ -201,7 +201,7 @@ void * getData_s(LinkedList_s * head, unsigned int index) {
     return temp->data;
 }
 
-int removeNode_s(LinkedList_s * head, unsigned int index, bool freeData) {
+int removeNode_s(LinkedList_s * head, unsigned int index, void (*freeData)(void * d)) {
     LinkedListBody_s * temp;
     LinkedListBody_s * last;
     if (head == NULL) {
@@ -216,17 +216,17 @@ int removeNode_s(LinkedList_s * head, unsigned int index, bool freeData) {
         if (index == 0) {
             temp = head->start;
             head->start = temp->next;
-            
-            if (freeData) {
-                free(temp->data);
+
+            if (freeData != NULL) {
+                (*freeData)(temp->data);
             }
             free(temp);
             head->numNodes = head->numNodes - 1;
             return 1;
         } else {
-            return 0; //the user must want to remove the only valid node 
+            return 0; //the user must want to remove the only valid node
         }
-    } 
+    }
 
     temp = getElementTraverse_s(head, index); //-1 because last ind is len - 1
     last = getElementTraverse_s(head, index - 1);
@@ -235,8 +235,8 @@ int removeNode_s(LinkedList_s * head, unsigned int index, bool freeData) {
     }
     //now temp points to the last node, and last points to the previous node
 
-    if (freeData) {
-        free(temp->data);
+    if (freeData != NULL) {
+        (*freeData)(temp->data);
     }
     last->next = temp->next;
     free(temp);
@@ -245,7 +245,7 @@ int removeNode_s(LinkedList_s * head, unsigned int index, bool freeData) {
 
 }
 
-int removeNodeStart_s(LinkedList_s * head, bool freeData) {
+int removeNodeStart_s(LinkedList_s * head, void (*freeData)(void * d)) {
     LinkedListBody_s * temp;
     if (head == NULL) {
         return 0; //head can't be NULL, return fail signal
@@ -255,8 +255,8 @@ int removeNodeStart_s(LinkedList_s * head, bool freeData) {
         return 0; //there must be at least one node
     }
 
-    if (freeData) {
-        free(head->start->data);
+    if (freeData != NULL) {
+        (*freeData)(head->start->data);
     }
 
     temp = head->start;
@@ -266,7 +266,7 @@ int removeNodeStart_s(LinkedList_s * head, bool freeData) {
     return 1;
 }
 
-int removeNodeEnd_s(LinkedList_s * head, bool freeData) {
+int removeNodeEnd_s(LinkedList_s * head, void (*freeData)(void * d)) {
     LinkedListBody_s * temp;
     LinkedListBody_s * last;
     if (head == NULL) {
@@ -277,12 +277,12 @@ int removeNodeEnd_s(LinkedList_s * head, bool freeData) {
         return 0; //can't remove what isn't there
     }
 
-    if (head->numNodes == 1) { 
+    if (head->numNodes == 1) {
         temp = head->start;
         head->start = temp->next;
-        
-        if (freeData) {
-            free(temp->data);
+
+        if (freeData != NULL) {
+            (*freeData)(temp->data);
         }
         free(temp);
         head->numNodes = head->numNodes - 1;
@@ -297,8 +297,8 @@ int removeNodeEnd_s(LinkedList_s * head, bool freeData) {
     }
     //now temp points to the last node, and last points to the previous node
 
-    if (freeData) {
-        free(temp->data);
+    if (freeData != NULL) {
+        (*freeData)(temp->data);
     }
     last->next = temp->next;
     free(temp);
@@ -306,7 +306,7 @@ int removeNodeEnd_s(LinkedList_s * head, bool freeData) {
     return 1;
 }
 
-int destroyList_s(LinkedList_s * head, bool freeData) {
+int destroyList_s(LinkedList_s * head, void (*freeData)(void * d)) {
     LinkedListBody_s * temp;
     LinkedListBody_s * next;
     if (head == NULL) {
@@ -315,35 +315,35 @@ int destroyList_s(LinkedList_s * head, bool freeData) {
 
     temp = head->start;
     while(temp != NULL) {
-        if (freeData) {
-            free(temp->data);
+        if (freeData != NULL) {
+            (*freeData)(temp->data);
         }
         next = temp->next;
         free(temp);
         temp = next;
         head->numNodes = head->numNodes - 1;
     }
-        
+
     return 1;
 }
 
-int setData_s(LinkedList_s * head, unsigned int index, void * data, bool freeData) {
+int setData_s(LinkedList_s * head, unsigned int index, void * data, void (*freeData)(void * d)) {
     LinkedListBody_s * temp;
 
     if (head == NULL) {
         return 0;
-    } 
+    }
 
     temp = getElementTraverse_s(head, index); //find the wanted element
     if (temp == NULL) {
         return 0; //was not able to find the node
     }
 
-    if (freeData) {
-        free(temp->data);
+    if (freeData != NULL) {
+        (*freeData)(temp->data);
     }
 
-    temp->data = data; 
+    temp->data = data;
     return 1; //success
 }
 
@@ -382,7 +382,7 @@ LinkedListBody_s * allocNode_s(void * data) {
     if (temp == NULL) {
         return NULL;
     }
-    
+
     temp->data = data;
 
     return temp;

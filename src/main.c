@@ -39,9 +39,16 @@ int * makeData(int data) {
     if (dataToReturn == NULL) {
         return NULL; //did not get memory, do not touch it
     }
-    
+
     *dataToReturn = data;
     return dataToReturn;
+}
+
+void freeData(void * data) {
+    int * dataHolder;
+    dataHolder = (int *) data;
+    free(dataHolder);
+    return;
 }
 
 void testLinkedList_s() {
@@ -55,7 +62,7 @@ void testLinkedList_s() {
         data = makeData(i);
         if (data == NULL) {
             printf("failed to make data\n");
-            return; 
+            return;
         }
         if (addNodeEnd_s(&list, (void *)data) == 0) {
             puts("Failed to add node to end");
@@ -68,19 +75,19 @@ void testLinkedList_s() {
 
     //remove a node
     puts("removing node 3");
-    removeNode_s(&list, 2, true);
+    removeNode_s(&list, 2, &freeData);
 
     printList(&list);
 
     //remove last node
     puts("removing last node");
-    removeNodeEnd_s(&list, true);
+    removeNodeEnd_s(&list, &freeData);
 
     printList(&list);
 
     //remove first node
     puts("removing first node");
-    removeNodeStart_s(&list, true);
+    removeNodeStart_s(&list, &freeData);
 
     printList(&list);
 
@@ -89,14 +96,14 @@ void testLinkedList_s() {
     addNodeInsert_s(&list, (void *)makeData(69), 1);
 
     printList(&list);
-    
+
     //test set data
     puts("test set data on node ind 1");
-    setData_s(&list, 1, (void *)makeData(29), true);
+    setData_s(&list, 1, (void *)makeData(29), &freeData);
 
     printList(&list);
 
-    destroyList_s(&list, true);
+    destroyList_s(&list, &freeData);
 
 
 
@@ -104,6 +111,7 @@ void testLinkedList_s() {
 
 void testStack() {
     Stack stack;
+    int * dataHolder;
 
     if (initStack(&stack) == 0) {
         puts("failed to init stack");
@@ -115,18 +123,28 @@ void testStack() {
     push(&stack, (void *)makeData(4));
     push(&stack, (void *)makeData(5));
 
-    printf("pop 1: %d\n", *(int *)pop(&stack));
+    dataHolder = (int *) pop(&stack);
+    printf("pop 1: %d\n", *dataHolder);
+    freeData(dataHolder);
     printf("size: %u\n", size(&stack));
-    printf("pop 2: %d\n", *(int *)pop(&stack));
+    dataHolder = (int *) pop(&stack);
+    printf("pop 2: %d\n", *dataHolder);
+    freeData(dataHolder);
     printf("size: %u\n", size(&stack));
-    printf("pop 3: %d\n", *(int *)pop(&stack));
+    dataHolder = (int *) pop(&stack);
+    printf("pop 3: %d\n", *dataHolder);
+    freeData(dataHolder);
     printf("size: %u\n", size(&stack));
-    printf("pop 4: %d\n", *(int *)pop(&stack));
+    dataHolder = (int *) pop(&stack);
+    printf("pop 4: %d\n", *dataHolder);
+    freeData(dataHolder);
     printf("size: %u\n", size(&stack));
-    printf("pop 5: %d\n", *(int *)pop(&stack));
+    dataHolder = (int *) pop(&stack);
+    printf("pop 5: %d\n", *dataHolder);
+    freeData(dataHolder);
     printf("size: %u\n", size(&stack));
 
-    destroyStack(&stack);
+    destroyStack(&stack, &freeData);
 }
 
 
