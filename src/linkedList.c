@@ -136,16 +136,23 @@ int addNodeInsertionSorted_s(LinkedList_s * head, void * data, int (*compare)(vo
     }
     last = head->start;
     current = head->start->next;
+    if (current == NULL) { //bigger than the last item
+        toBeInserted->next = last->next;
+        last->next = toBeInserted;
+        head->numNodes = head->numNodes + 1;
+        return 1; //successful insertion
+    }
     //while the relative weight of toBeInserted is more than current,
-    while (((*compare)(toBeInserted, current)) > 0) {
-        last = current;
-        current = current->next;
+    while (((*compare)(toBeInserted, current)) >= 0) {
         if (current == NULL) {
             //bigger than the last item
             toBeInserted->next = last->next;
             last->next = toBeInserted;
+            head->numNodes = head->numNodes + 1;
             return 1; //successful insertion
         }
+        last = current;
+        current = current->next;
     }
     //once we are smaller than current, insert after last
     toBeInserted->next = last->next;
@@ -158,28 +165,6 @@ int addNodeInsertionSorted_s(LinkedList_s * head, void * data, int (*compare)(vo
 int sortList_s(LinkedList_s * head, int (*compare)(void * a, void * b));
 
 int length_s(LinkedList_s * head) {
-    /*
-    LinkedListBody_s * temp;
-    int length;
-
-    if (head == NULL) {
-        return -1; //if the head is not allocated properly, return error
-    }
-
-    length = 0;
-    if (head->start == NULL) {
-        return 0; //if there isn't a first node, return 0 length
-    }
-
-    temp = head->start;
-    ++length; //go to the first node and count it
-    while (temp->next != NULL) { //traverse and count
-        temp = temp->next;
-        ++length;
-    }
-
-    return length; //once done traversing, return the count
-    */
     if (head == NULL) {
         return -1; //if the head is not allocated properly, return error
     }
