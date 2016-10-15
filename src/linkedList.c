@@ -129,7 +129,7 @@ int addNodeInsertionSorted_s(LinkedList_s * head, void * data, int (*compare)(vo
     }
 
     //if the new node is smaller than the first node, insert at the start
-    if (((*compare)(toBeInserted, head->start)) < 0) {
+    if (((*compare)(toBeInserted->data, head->start->data)) < 0) {
         toBeInserted->next = head->start;
         head->start = toBeInserted;
         return 1; //successful insertion
@@ -143,7 +143,7 @@ int addNodeInsertionSorted_s(LinkedList_s * head, void * data, int (*compare)(vo
         return 1; //successful insertion
     }
     //while the relative weight of toBeInserted is more than current,
-    while (((*compare)(toBeInserted, current)) >= 0) {
+    while (((*compare)(toBeInserted->data, current->data)) >= 0) {
         if (current == NULL) {
             //bigger than the last item
             toBeInserted->next = last->next;
