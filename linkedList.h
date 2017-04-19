@@ -151,36 +151,60 @@ int destroyList_s(LinkedList_s * head, void (*freeData)(void * d));
 int setData_s(LinkedList_s * head, unsigned int index, void * data, void (*freeData)(void * d));
 
 /**
- * Internal function to return the node at the given index
- * INPUT:
- *  the head of th list,
- *  the index wanted
- * OUTPUT:
- *  NULL on fail
- *  a pointer to a Node on success
+ * cutPasteInsertAfter
+ * Given the list, a range and an index to insert at, cuts the given range out
+ *  of the list, and inserts it after then given index.
+ * IN:
+ *  head - the list to modify
+ *  start - the start of the range to cut, inclusive
+ *  end - the end of the range to cut, inclusive
+ *  insertAfter - the index to insert the range after.
+ * Do NOT overlap the ranges, this will break the list.
  */
-LinkedListBody_s * getElementTraverse_s(LinkedList_s * head, unsigned int index);
-
-/**
- * allocate memory to make a body node, and assign it's data pointer to the given pointer
- * INPUT: the pointer to copy into the new struct
- * OUTPUT: a pointer to a new body node
- */
-LinkedListBody_s * allocNode_s(void * data);
-
-/**
- * swap the two given pointers
- */
-void swap(LinkedListBody_s * a, LinkedListBody_s * b);
-
 void cutPasteInsertAfter(LinkedList_s * head, int start, int end, int insertAfter);
 
+/**
+ * enqueue_s
+ * Given the list and some data, append the data to the list.
+ * When used with the dequeue_s function, acts like a queue.
+ * IN:
+ *  head - the list to alter
+ *  data - the data to enqueue
+ * OUT: 1 on success, 0 on failure
+ */
 int enqueue_s(LinkedList_s * head, void * data);
 
+/**
+ * dequeue_s
+ * Given the list, get the first item in the list.
+ * When used with the enqueue_s function, acts like a queue.
+ * Removes the data from the list.
+ * IN:
+ *  head - the list to alter
+ * OUT: NULL if the list is empty, the data otherwise.
+ */
 void * dequeue_s(LinkedList_s * head);
 
+/**
+ * push_s
+ * Given the list and some data, add the data to the front of the list.
+ * When used with the pop_s function, acts like a stack.
+ * IN:
+ *  head - the list to alter
+ *  data - the data to push
+ * OUT: 1 on success, 0 on failure
+ */
 int push_s(LinkedList_s * head, void * data);
 
+/**
+ * pop_s
+ * Given the list, get the first item in the list.
+ * When used with the push_s function, acts like a stack.
+ * Removes the data from the list.
+ * IN:
+ *  head - the list to alter
+ * OUT: NULL if the list is empty, the data otherwise.
+ */
 void * pop_s(LinkedList_s * head);
 
 

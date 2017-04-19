@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+LinkedListBody_s * getElementTraverse_s(LinkedList_s * head, unsigned int index);
+LinkedListBody_s * allocNode_s(void * data);
 
 /**
  * See function prototype in include/linkedList.h for details
@@ -390,7 +392,13 @@ int setData_s(LinkedList_s * head, unsigned int index, void * data, void (*freeD
 }
 
 /**
- * See function prototype in include/linkedList.h for details
+ * Internal function to return the node at the given index
+ * INPUT:
+ *  the head of th list,
+ *  the index wanted
+ * OUTPUT:
+ *  NULL on fail
+ *  a pointer to a Node on success
  */
 LinkedListBody_s * getElementTraverse_s(LinkedList_s * head, unsigned int index) {
     LinkedListBody_s * temp;
@@ -421,7 +429,9 @@ LinkedListBody_s * getElementTraverse_s(LinkedList_s * head, unsigned int index)
 }
 
 /**
- * See function prototype in include/linkedList.h for details
+ * allocate memory to make a body node, and assign it's data pointer to the given pointer
+ * INPUT: the pointer to copy into the new struct
+ * OUTPUT: a pointer to a new body node
  */
 LinkedListBody_s * allocNode_s(void * data) {
     LinkedListBody_s * temp;
@@ -436,17 +446,10 @@ LinkedListBody_s * allocNode_s(void * data) {
     return temp;
 }
 
+
 /**
  * See function prototype in include/linkedList.h for details
  */
-void swap(LinkedListBody_s * a, LinkedListBody_s * b) {
-    LinkedListBody_s * temp;
-    temp = b;
-    b = a;
-    a = temp;
-}
-
-
 void cutPasteInsertAfter(LinkedList_s * head, int start, int end, int insertAfter) {
     LinkedListBody_s * nodeBefore, * nodeInsert;
     LinkedListBody_s * rangeEnd, * rangeStart;
@@ -475,11 +478,17 @@ void cutPasteInsertAfter(LinkedList_s * head, int start, int end, int insertAfte
 }
 
 
+/**
+ * See function prototype in include/linkedList.h for details
+ */
 int enqueue_s(LinkedList_s * head, void * data) {
     return addNodeEnd_s(head, data);
 }
 
 
+/**
+ * See function prototype in include/linkedList.h for details
+ */
 void * dequeue_s(LinkedList_s * head) {
     void * data = getData_s(head, 0);
     removeNode_s(head, 0, NULL);
@@ -487,10 +496,16 @@ void * dequeue_s(LinkedList_s * head) {
 }
 
 
+/**
+ * See function prototype in include/linkedList.h for details
+ */
 int push_s(LinkedList_s * head, void * data) {
     return addNodeStart_s(head, data);
 }
 
+/**
+ * See function prototype in include/linkedList.h for details
+ */
 void * pop_s(LinkedList_s * head) {
     void * data = getData_s(head, 0);
     removeNode_s(head, 0, NULL);

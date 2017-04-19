@@ -1,4 +1,4 @@
-ODIR=objects/
+ODIR=./
 IDIR=./
 SDIR=
 CFLAGS=-Wall -g -ansi -I$(IDIR)
