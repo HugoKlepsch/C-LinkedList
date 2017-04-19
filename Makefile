@@ -1,15 +1,10 @@
-CC=gcc
-CFLAGS=-Wall -std=c99 -g
 ODIR=objects/
-SRCDIR=src/
-INCDIR=include/
-OBJ=$(ODIR)main.o $(ODIR)linkedList.o $(ODIR)stack.o $(ODIR)queue.o
+IDIR=include/
+SDIR=src/
+CFLAGS=-Wall -g -ansi -I$(IDIR)
 
-all: llsqtest
+all: $(ODIR)linkedList.o
 
-$(ODIR)%.o: $(SRCDIR)%.c
-	$(CC) -c -o $@ $< $(CFLAGS) -I$(INCDIR)
 
-llsqtest: $(OBJ)
-	$(CC) -o $@ $(CFLAGS) $^ -I$(INCDIR) 
-
+$(ODIR)linkedList.o: $(SDIR)linkedList.c
+	gcc -c $(SDIR)linkedList.c -o $(ODIR)linkedList.o $(CFLAGS)
