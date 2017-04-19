@@ -1,6 +1,6 @@
 ODIR=objects/
-IDIR=include/
-SDIR=src/
+IDIR=./
+SDIR=
 CFLAGS=-Wall -g -ansi -I$(IDIR)
 
 all: $(ODIR)linkedList.o
